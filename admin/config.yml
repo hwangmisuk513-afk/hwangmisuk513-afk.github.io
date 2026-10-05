@@ -198,6 +198,7 @@ collections:
           - label: 언론 보도
             name: press
             widget: list
+            required: false
             collapsed: true
             summary: "{{title}}"
             fields:
