@@ -1,0 +1,8 @@
+# GitHub 아이디: hwangmisuk513-afk
+url: "https://hwangmisuk513-afk.github.io"
+baseurl: ""
+title: "AI강사 황미숙"
+lang: ko
+exclude:
+  - README.md
+  - 설치안내.md

@@ -1,0 +1,220 @@
+# 관리자 페이지 설정
+# GitHub 아이디: hwangmisuk513-afk
+backend:
+  name: github
+  repo: hwangmisuk513-afk/hwangmisuk513-afk.github.io
+  branch: main
+  commit_messages:
+    update: "내용 수정: {{path}}"
+    uploadMedia: "사진 업로드: {{path}}"
+
+locale: ko
+media_folder: images
+public_folder: /images
+site_url: https://hwangmisuk513-afk.github.io
+display_url: https://hwangmisuk513-afk.github.io
+
+collections:
+  - name: site
+    label: 랜딩페이지 내용
+    editor:
+      preview: false
+    files:
+      - name: main
+        label: 페이지 전체 내용
+        file: _data/site.yml
+        fields:
+          - label: 검색 노출 (네이버 · 구글)
+            name: seo
+            widget: object
+            collapsed: true
+            fields:
+              - { label: 브라우저 탭 제목, name: title, widget: string }
+              - { label: 검색 결과 설명, name: description, widget: text }
+              - { label: 검색 키워드 (쉼표로 구분), name: keywords, widget: string }
+              - { label: 네이버 소유확인 코드, name: naver_verification, widget: string, required: false, hint: "네이버 서치어드바이저 HTML 태그의 content 값만 붙여넣기" }
+              - { label: 구글 소유확인 코드, name: google_verification, widget: string, required: false }
+
+          - label: 첫 화면
+            name: hero
+            widget: object
+            fields:
+              - { label: 수상 배지 문구, name: award_text, widget: string, required: false, hint: "**별표 두 개**로 감싸면 골드 강조" }
+              - { label: 수상 기사 링크, name: award_link, widget: string, required: false }
+              - { label: 상단 소제목, name: eyebrow, widget: string }
+              - { label: 큰 문구 (비워두면 이름이 크게 표시), name: headline, widget: string, required: false }
+              - { label: 이름, name: name, widget: string }
+              - { label: 영문 이름, name: name_en, widget: string }
+              - { label: 직함 한 줄, name: tagline, widget: string }
+              - { label: 프로필 사진, name: photo, widget: image }
+              - { label: 업무 활용 목록, name: tasks, widget: list, field: { label: 항목, name: item, widget: string } }
+              - { label: 문의 버튼 문구, name: cta_primary, widget: string }
+              - { label: 두번째 버튼 문구, name: cta_secondary, widget: string }
+              - { label: 주요 출강처, name: clients, widget: list, field: { label: 기관명, name: item, widget: string } }
+
+          - label: 숫자 띠
+            name: stats
+            widget: list
+            collapsed: true
+            summary: "{{num}}{{unit}} {{label}}"
+            fields:
+              - { label: 숫자, name: num, widget: string }
+              - { label: 단위, name: unit, widget: string }
+              - { label: 설명, name: label, widget: string }
+
+          - label: 핵심 강의 분야
+            name: curriculum
+            widget: object
+            collapsed: true
+            fields:
+              - { label: 소개 문구, name: intro, widget: string }
+              - label: 강의 카드
+                name: programs
+                widget: list
+                summary: "{{title}}"
+                fields:
+                  - { label: 대상, name: who, widget: string }
+                  - { label: 과정명, name: title, widget: string }
+                  - { label: 세부 항목, name: items, widget: list, field: { label: 항목, name: item, widget: string } }
+              - { label: 강의 설계 원칙, name: principle, widget: text }
+
+          - label: 철학 문구 띠
+            name: quote
+            widget: object
+            collapsed: true
+            fields:
+              - { label: 영문 문구, name: formula, widget: string }
+              - { label: 한글 문구, name: text, widget: text }
+
+          - label: 강의 이력
+            name: history
+            widget: object
+            collapsed: true
+            fields:
+              - { label: 섹션 제목, name: title, widget: string }
+              - label: 주요 성과 배지
+                name: highlights
+                widget: list
+                summary: "{{org}} {{text}}"
+                fields:
+                  - { label: 기관, name: org, widget: string }
+                  - { label: 내용, name: text, widget: string }
+                  - { label: 골드 강조, name: best, widget: boolean, default: false, required: false }
+              - label: 분야별 이력
+                name: groups
+                widget: list
+                summary: "{{title}}"
+                fields:
+                  - { label: 분야명, name: title, widget: string }
+                  - label: 강의
+                    name: items
+                    widget: list
+                    summary: "{{org}} · {{title}}"
+                    fields:
+                      - { label: 기관, name: org, widget: string }
+                      - { label: 작은 표시 (BEST, 300명 등), name: tag, widget: string, required: false }
+                      - { label: 강의명, name: title, widget: string }
+                      - { label: 설명, name: desc, widget: string, required: false }
+              - label: 출강 커버리지
+                name: coverage
+                widget: list
+                summary: "{{title}}"
+                fields:
+                  - { label: 제목, name: title, widget: string }
+                  - { label: 골드 한 줄, name: point, widget: string }
+                  - { label: 내용 줄, name: lines, widget: list, field: { label: 줄, name: item, widget: string } }
+
+          - label: 강의 현장 · 후기
+            name: field
+            widget: object
+            collapsed: true
+            fields:
+              - { label: 소개 문구, name: intro, widget: text }
+              - label: 강의 사진
+                name: gallery
+                widget: list
+                summary: "{{caption}}"
+                fields:
+                  - { label: 사진, name: image, widget: image }
+                  - { label: 사진 설명, name: caption, widget: string }
+                  - { label: 넓게 표시, name: wide, widget: boolean, default: false, required: false }
+              - label: 기관별 후기 카드
+                name: boards
+                widget: list
+                summary: "{{org}}"
+                fields:
+                  - { label: 기관, name: org, widget: string }
+                  - { label: 과정 · 대상, name: course, widget: string }
+                  - label: 후기
+                    name: reviews
+                    widget: list
+                    summary: "{{by}}"
+                    fields:
+                      - { label: 후기 내용, name: text, widget: text, hint: "**별표 두 개**로 감싸면 밑줄 강조" }
+                      - { label: 작성자, name: by, widget: string }
+              - label: 긴 후기
+                name: reviews
+                widget: list
+                summary: "{{by}}"
+                fields:
+                  - { label: 후기 내용, name: text, widget: text }
+                  - { label: 작성자, name: by, widget: string }
+                  - { label: 수강 과정, name: course, widget: string }
+
+          - label: 진행 과정
+            name: process
+            widget: list
+            collapsed: true
+            summary: "{{title}}"
+            fields:
+              - { label: 단계명, name: title, widget: string }
+              - { label: 설명, name: text, widget: string }
+
+          - label: 자격과 경력
+            name: credentials
+            widget: object
+            collapsed: true
+            fields:
+              - { label: "AI · 디지털 자격", name: ai, widget: list, field: { label: 자격, name: item, widget: string } }
+              - { label: "심리 · 힐링 자격", name: healing, widget: list, field: { label: 자격, name: item, widget: string } }
+              - { label: "아동 · 교육 자격", name: kids, widget: list, field: { label: 자격, name: item, widget: string } }
+              - { label: 사용 도구, name: tools, widget: list, field: { label: 도구, name: item, widget: string } }
+              - label: 현재 활동
+                name: roles
+                widget: list
+                summary: "{{org}}"
+                fields:
+                  - { label: 기관, name: org, widget: string }
+                  - { label: 직함, name: title, widget: string }
+                  - { label: 설명, name: desc, widget: string }
+              - label: 학력 · 경력
+                name: career
+                widget: list
+                summary: "{{title}}"
+                fields:
+                  - { label: 제목, name: title, widget: string }
+                  - { label: 설명, name: desc, widget: string }
+
+          - label: 언론 보도
+            name: press
+            widget: list
+            collapsed: true
+            summary: "{{title}}"
+            fields:
+              - { label: 매체 · 구분, name: outlet, widget: string }
+              - { label: 기사 제목, name: title, widget: string }
+              - { label: 기사 주소, name: url, widget: string }
+
+          - label: 출강 문의 · 연락처
+            name: contact
+            widget: object
+            collapsed: true
+            fields:
+              - { label: 소개 문구, name: intro, widget: string }
+              - { label: 전화번호, name: tel, widget: string }
+              - { label: 이메일, name: email, widget: string }
+              - { label: 네이버 블로그 주소, name: blog, widget: string, required: false }
+              - { label: 유튜브 주소, name: youtube, widget: string, required: false }
+              - { label: 카카오 오픈채팅 주소, name: kakao, widget: string, required: false }
+              - { label: 주소 (비워두면 표시 안 함), name: address, widget: string, required: false }
+              - { label: 문의 체크리스트, name: checklist, widget: list, field: { label: 항목, name: item, widget: string } }

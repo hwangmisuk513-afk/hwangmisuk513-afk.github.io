@@ -1,0 +1,271 @@
+---
+layout: null
+---
+{%- assign d = site.data.site -%}
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{ d.seo.title }}</title>
+<meta name="description" content="{{ d.seo.description | escape }}">
+<meta name="keywords" content="{{ d.seo.keywords | escape }}">
+{%- if d.seo.naver_verification != "" and d.seo.naver_verification %}
+<meta name="naver-site-verification" content="{{ d.seo.naver_verification }}">
+{%- endif %}
+{%- if d.seo.google_verification != "" and d.seo.google_verification %}
+<meta name="google-site-verification" content="{{ d.seo.google_verification }}">
+{%- endif %}
+<link rel="canonical" href="{{ site.url }}/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ d.seo.title | escape }}">
+<meta property="og:description" content="{{ d.seo.description | escape }}">
+<meta property="og:image" content="{{ site.url }}{{ d.hero.photo }}">
+<meta property="og:url" content="{{ site.url }}/">
+<meta property="og:locale" content="ko_KR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap">
+<link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"{{ d.hero.name }}","alternateName":"{{ d.hero.name_en }}","jobTitle":"한국AI콘텐츠 연구소 전임강사","url":"{{ site.url }}/","image":"{{ site.url }}{{ d.hero.photo }}","email":"{{ d.contact.email }}","telephone":"{{ d.contact.tel }}","sameAs":["{{ d.contact.blog }}","{{ d.contact.youtube }}"]}
+</script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top">{{ d.hero.name }} <em>{{ d.hero.name_en }}</em></a>
+    <nav class="menu" aria-label="주요 메뉴">
+      <a href="#curriculum">강의 분야</a><a href="#history">강의 이력</a><a href="#field">현장·후기</a><a href="#process">진행 과정</a><a href="#credentials">자격</a>
+    </nav>
+    <a class="btn btn-gold" href="#contact">출강 문의</a>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-text">
+      {%- if d.hero.award_text != "" %}
+      {%- if d.hero.award_link != "" %}
+      <a class="award" href="{{ d.hero.award_link }}" target="_blank" rel="noopener"><span class="star" aria-hidden="true"></span>{{ d.hero.award_text | markdownify | remove: '<p>' | remove: '</p>' | strip }}<span class="more">기사 보기 →</span></a>
+      {%- else %}
+      <div class="award"><span class="star" aria-hidden="true"></span>{{ d.hero.award_text | markdownify | remove: '<p>' | remove: '</p>' | strip }}</div>
+      {%- endif %}
+      {%- endif %}
+      <div class="role">{{ d.hero.eyebrow }}</div>
+      {%- if d.hero.headline != "" %}
+      <p class="headline">{{ d.hero.headline | markdownify | remove: '<p>' | remove: '</p>' | replace: '<strong>', '<mark>' | replace: '</strong>', '</mark>' | strip }}</p>
+      <div class="name"><h1>{{ d.hero.name }}</h1><span class="latin">{{ d.hero.name_en }}</span></div>
+      {%- else %}
+      <div class="name big"><h1>{{ d.hero.name }}</h1><span class="latin">{{ d.hero.name_en }}</span></div>
+      {%- endif %}
+      <p class="tagline">{{ d.hero.tagline }}</p>
+      <ul class="tasks" aria-label="주요 업무 활용 분야">
+        {%- for t in d.hero.tasks %}
+        <li>{{ t }}</li>
+        {%- endfor %}
+      </ul>
+      <div class="ctas">
+        <a class="btn btn-gold" href="#contact">{{ d.hero.cta_primary }}</a>
+        <a class="btn btn-line" href="#curriculum">{{ d.hero.cta_secondary }}</a>
+      </div>
+      <div class="clients">
+        <span class="lbl">주요 출강처</span>
+        {%- for c in d.hero.clients %}<span>{{ c }}</span>{% endfor %}
+      </div>
+    </div>
+    <div class="portrait"><img src="{{ d.hero.photo | relative_url }}" alt="{{ d.hero.name }} 강사 프로필 사진" width="600" height="750"></div>
+  </div>
+  <div class="watermark" aria-hidden="true">{{ d.hero.name_en }}</div>
+</section>
+
+<section class="stats" aria-label="경력 요약">
+  <div class="wrap">
+    {%- for st in d.stats %}
+    <div class="stat"><b>{{ st.num }}<small>{{ st.unit }}</small></b><span>{{ st.label }}</span></div>
+    {%- endfor %}
+  </div>
+</section>
+
+<section class="sec sec-beige" id="curriculum">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Core Curriculum</div>
+      <h2>핵심 강의 분야</h2>
+      <p>{{ d.curriculum.intro }}</p>
+    </div>
+    <div class="programs">
+      {%- for p in d.curriculum.programs %}
+      <div class="prog"><div class="who">대상 : {{ p.who }}</div><h3>{{ p.title }}</h3><ul>{% for i in p.items %}<li>{{ i }}</li>{% endfor %}</ul></div>
+      {%- endfor %}
+    </div>
+    <p class="principle"><b>강의 설계 원칙</b>{{ d.curriculum.principle }}</p>
+  </div>
+</section>
+
+<section class="quote">
+  <div class="wrap">
+    <div class="formula">{{ d.quote.formula }}</div>
+    <blockquote>{{ d.quote.text }}</blockquote>
+  </div>
+</section>
+
+<section class="sec" id="history">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Lecture History</div>
+      <h2>{{ d.history.title }}</h2>
+    </div>
+    <div class="highlights" aria-label="주요 강의 성과">
+      {%- for h in d.history.highlights %}
+      <span{% if h.best %} class="best"{% endif %}><b>{{ h.org }}</b>{{ h.text }}</span>
+      {%- endfor %}
+    </div>
+    <div class="history">
+      {%- for g in d.history.groups %}
+      <div class="hist">
+        <h3><span>{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>{{ g.title }}</h3>
+        <ul>
+          {%- for it in g.items %}
+          <li><b>{{ it.org }}{% if it.tag and it.tag != "" %}<i>{{ it.tag }}</i>{% endif %}</b><div>{{ it.title }}{% if it.desc and it.desc != "" %}<small>{{ it.desc }}</small>{% endif %}</div></li>
+          {%- endfor %}
+        </ul>
+      </div>
+      {%- endfor %}
+    </div>
+    <div class="coverage">
+      {%- for cv in d.history.coverage %}
+      <div class="cov"><h3>{{ cv.title }}</h3><div class="pt">{{ cv.point }}</div><p>{{ cv.lines | join: '<br>' }}</p></div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-beige" id="field">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">In the Field · Reviews</div>
+      <h2>강의 현장과 수강 후기</h2>
+      <p>{{ d.field.intro }}</p>
+    </div>
+    <div class="field">
+      {%- for g in d.field.gallery %}
+      <figure{% if g.wide %} class="wide"{% endif %}><img src="{{ g.image | relative_url }}" alt="{{ g.caption | escape }}" loading="lazy"><figcaption>{{ g.caption }}</figcaption></figure>
+      {%- endfor %}
+    </div>
+    <div class="boards">
+      {%- for b in d.field.boards %}
+      <div class="board-card">
+        <div class="org"><b>{{ b.org }}</b><span>{{ b.course }}</span></div>
+        <ul>
+          {%- for r in b.reviews %}
+          <li>{{ r.text | markdownify | remove: '<p>' | remove: '</p>' | strip }}<small>{{ r.by }}</small></li>
+          {%- endfor %}
+        </ul>
+      </div>
+      {%- endfor %}
+    </div>
+    <div class="reviews">
+      {%- for r in d.field.reviews %}
+      <div class="review">
+        <p>{{ r.text | markdownify | remove: '<p>' | remove: '</p>' | strip }}</p>
+        <div class="by"><b>{{ r.by }}</b><span>{{ r.course }}</span></div>
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="process">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Process</div>
+      <h2>문의부터 강의까지</h2>
+    </div>
+    <div class="steps">
+      {%- for p in d.process %}
+      <div class="step"><div class="n">STEP {{ forloop.index }}</div><h3>{{ p.title }}</h3><p>{{ p.text }}</p></div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-beige" id="credentials">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Qualifications · Career</div>
+      <h2>자격과 경력</h2>
+    </div>
+    <div class="cred">
+      <div>
+        <h3>AI · DIGITAL</h3>
+        <div class="badges ai">{% for x in d.credentials.ai %}<span>{{ x }}</span>{% endfor %}</div>
+        <h3>심리 · 힐링</h3>
+        <div class="badges">{% for x in d.credentials.healing %}<span>{{ x }}</span>{% endfor %}</div>
+        <h3>아동 · 교육</h3>
+        <div class="badges">{% for x in d.credentials.kids %}<span>{{ x }}</span>{% endfor %}</div>
+        <h3>TOOLS · SKILLS</h3>
+        <div class="tools">{% for x in d.credentials.tools %}<span>{{ x }}</span>{% endfor %}</div>
+      </div>
+      <div>
+        <h3>CURRENT ROLES</h3>
+        <ul class="roles">
+          {%- for r in d.credentials.roles %}
+          <li><b>{{ r.org }}</b><em>{{ r.title }}</em><small>{{ r.desc }}</small></li>
+          {%- endfor %}
+        </ul>
+        <h3>EDUCATION · CAREER</h3>
+        <ul class="roles">
+          {%- for c in d.credentials.career %}
+          <li><b>{{ c.title }}</b><small>{{ c.desc }}</small></li>
+          {%- endfor %}
+        </ul>
+      </div>
+    </div>
+    {%- if d.press.size > 0 %}
+    <div class="press-list">
+      {%- for p in d.press %}
+      <a class="press" href="{{ p.url }}" target="_blank" rel="noopener">
+        <div class="outlet">PRESS<small>{{ p.outlet }}</small></div>
+        <h3>{{ p.title }}</h3>
+        <span class="go">기사 읽기 →</span>
+      </a>
+      {%- endfor %}
+    </div>
+    {%- endif %}
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Contact</div>
+      <h2>출강 문의</h2>
+      <p class="desc">{{ d.contact.intro }}</p>
+      <ul class="info">
+        <li><b>TEL</b><span><a href="tel:{{ d.contact.tel | remove: '-' }}">{{ d.contact.tel }}</a></span></li>
+        <li><b>E-MAIL</b><span><a href="mailto:{{ d.contact.email }}">{{ d.contact.email }}</a></span></li>
+        {%- if d.contact.address != "" %}
+        <li><b>ADDRESS</b><span>{{ d.contact.address }}</span></li>
+        {%- endif %}
+      </ul>
+      <div class="channels">
+        {%- if d.contact.kakao != "" %}<a class="btn btn-gold" href="{{ d.contact.kakao }}" target="_blank" rel="noopener">카카오 오픈채팅</a>{% endif %}
+        {%- if d.contact.blog != "" %}<a class="btn btn-line" href="{{ d.contact.blog }}" target="_blank" rel="noopener">네이버 블로그</a>{% endif %}
+        {%- if d.contact.youtube != "" %}<a class="btn btn-line" href="{{ d.contact.youtube }}" target="_blank" rel="noopener">유튜브</a>{% endif %}
+      </div>
+    </div>
+    <div class="check">
+      <h3>문의 시 함께 알려주시면 좋아요</h3>
+      <ul class="checklist">
+        {%- for c in d.contact.checklist %}
+        <li>{{ c }}</li>
+        {%- endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+<footer class="foot"><div class="wrap"><span>© {{ d.hero.name }} {{ d.hero.name_en }} · 한국AI콘텐츠 연구소 전임강사</span><span>{{ d.quote.formula }}</span></div></footer>
+</body>
+</html>
